@@ -5,43 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Gallery</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <h1 id="heading">PHOTO-GALLERY</h1>
-    <div class="gallery">
-        <img class="gallery-image" src="./images/1-image.jpg" alt="Image 1">
-        <img class="gallery-image" src="./images/2-image.png" alt="Image 2">
-        <img class="gallery-image" src="./images/3-image.jpg" alt="Image 3">
-        <img class="gallery-image" src="./images/4-image.jpg" alt="Image 4">
-        <img class="gallery-image" src="./images/5-image.webp" alt="Image 5">
-        <img class="gallery-image" src="./images/6-image.jpg" alt="Image 6">
-        <img class="gallery-image" src="./images/7-image.jpg" alt="Image 7">
-        <img class="gallery-image" src="./images/8-image.jpg" alt="Image 8">
-        <img class="gallery-image" src="./images/9-image.jpeg" alt="Image 9">
-        <img class="gallery-image" src="./images/10-image.jpg" alt="Image 10">
-        <img class="gallery-image" src="./images/11-image.jpg" alt="Image 11">
-        <img class="gallery-image" src="./images/12-image.jpg" alt="Image 12">
-        <img class="gallery-image" src="./images/13-image.webp" alt="Image 13">
-        <img class="gallery-image" src="./images/14-image.jpg" alt="Image 14">
-        <img class="gallery-image" src="./images/15-image.jpg" alt="Image 15">
-        <img class="gallery-image" src="./images/17-image.jpg" alt="Image 17">
-        <img class="gallery-image" src="./images/18-image.jpg" alt="Image 18"> 
-        <img class="gallery-image" src="./images/19-image.jpg" alt="Image 19">
-            <!-- Popup for viewing the image -->
-        <div class="popup" id="popup">
-            <div class="popup-content">
-                <span class="close-btn" onclick="closePopup()"><i class="fa-sharp fa-solid fa-xmark"></i></span>
-                <img id="popup-img" src="" alt="Popup Image">
-                <div class="popup-controls">
-                    <button class="prev" onclick="navigate('prev')"><i class="fa-solid fa-circle-left"></i></button>
-
-                    <button class="next" onclick="navigate('next')"><i class="fa-solid fa-circle-right"></i></button>
-                </div>
-            </div>
-            <div class="dots-container" id="dots-container"></div>
-        </div>
+    <h1 id="heading">PHOTO GALLERY</h1>
+    <div class="gallery" id="gallery">
     </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()"><i class="fa-sharp fa-solid fa-xmark"></i></span>
+            <img id="popup-img" src="" alt="Popup Image">  
+        </div>
+        <div class="popup-controls">
+            <button class="prev" onclick="navigate('prev')"><i class="fa-solid fa-circle-left"></i></button>
+            <button class="next" onclick="navigate('next')"><i class="fa-solid fa-circle-right"></i></button>
+        </div>
+        <div class="dots-container" id="dots-container"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
