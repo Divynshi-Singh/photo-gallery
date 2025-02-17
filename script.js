@@ -1,5 +1,5 @@
 const images = [
-    "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/1.png",
+    "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/1.png", 
     "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/1.png",
     "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png",
     "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png",
@@ -20,10 +20,9 @@ const images = [
 
 ];
 
+let currentImageIndex = 0;
 function renderGallery(images) {
     const galleryContainer = document.getElementById('gallery');
-
-
     images.forEach((imageUrl, index) => {
         const imgElement = document.createElement('img');
         imgElement.src = imageUrl;
@@ -37,41 +36,76 @@ function renderGallery(images) {
     });
 }
 
-let currentImageIndex = 0;
 function openPopup(index) {
     const popup = document.getElementById('popup');
     const popupImage = document.getElementById('popup-img');
     popupImage.src = images[index];
     currentImageIndex = index;
     popup.style.display = 'flex';
+
     createDots();
     updateDots();
 }
-
 function closePopup() {
     const popup = document.getElementById('popup');
     popup.style.display = 'none';
 }
 function navigate(direction) {
-    if (direction === 'prev') {
-        currentImageIndex = (currentImageIndex > 0) ? currentImageIndex - 1 : images.length - 1;
-    } else if (direction === 'next') {
-        currentImageIndex = (currentImageIndex < images.length - 1) ? currentImageIndex + 1 : 0;
+    const popupImage = document.getElementById('popup-img');
+    const currentImage = popupImage;
+    let nextImageIndex;
+    if (direction === 'next') {
+        nextImageIndex = (currentImageIndex + 1) % images.length;
+    } else if (direction === 'prev') {
+        nextImageIndex = (currentImageIndex - 1 + images.length) % images.length;
     }
-    document.getElementById('popup-img').src = images[currentImageIndex];
-    updateDots();
+    currentImage.style.transition = 'transform 0.5s ease-in-out';
+    currentImage.style.transform = direction === 'next' ? 'translateX(-100%)' : 'translateX(100%)';
+
+    setTimeout(() => {
+        currentImageIndex = nextImageIndex;
+        popupImage.src = images[currentImageIndex];
+        popupImage.style.transition = 'none';
+        popupImage.style.transform = direction === 'next' ? 'translateX(100%)' : 'translateX(-100%)';
+        setTimeout(() => {
+            popupImage.style.transition = 'transform 0.5s ease-in-out';
+            popupImage.style.transform = 'translateX(0)';
+            updateDots();
+        }, 50);
+    }, 500);
 }
 
 function createDots() {
     const dotsContainer = document.getElementById('dots-container');
-    dotsContainer.innerHTML = '';
-
-    images.forEach((_, index) => {
+    dotsContainer.innerHTML = ''; 
+        images.forEach((_, index) => {
         const dot = document.createElement('div');
         dot.classList.add('dot');
-        dot.addEventListener('click', () => openPopup(index));
+        dot.addEventListener('click', () => {
+            goToDot(index); 
+        });
         dotsContainer.appendChild(dot);
     });
+}
+
+function goToDot(index) {
+    const popupImage = document.getElementById('popup-img');
+    const currentImage = popupImage;
+    currentImage.style.transition = 'none';
+    let stepIndex = currentImageIndex;
+    let steps = Math.abs(currentImageIndex - index);
+    let direction = index > currentImageIndex ? 1 : -1;
+    let interval = setInterval(() => {
+        stepIndex += direction;
+        popupImage.src = images[stepIndex];
+        if (stepIndex === index) {
+            clearInterval(interval);
+            currentImage.style.transition = 'transform 0.5s ease-in-out';
+            popupImage.style.transform = 'translateX(0)';
+            currentImageIndex = stepIndex; 
+            updateDots();
+        }
+    }, 100); 
 }
 
 function updateDots() {
@@ -83,6 +117,15 @@ function updateDots() {
         }
     });
 }
+
 window.onload = () => {
     renderGallery(images);
 };
+
+
+
+
+
+
+
+

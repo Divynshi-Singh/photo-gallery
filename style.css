@@ -1,4 +1,5 @@
-* {
+ 
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: rgb(152, 144, 146);
+    background-color: rgb(202, 196, 197);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -35,7 +36,7 @@ body {
     max-width: 1200px;
     padding: 10px;
     justify-items: center;
-    /* border: 2px solid black; */
+   
 }
 
 .gallery-image {
@@ -44,11 +45,19 @@ body {
     object-fit: cover;
     cursor: pointer;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out,transform 0.3s ease-in-out;
+    background-color: white;
+    object-fit: contain;
+    /* border: 2px solid black; */
+   
 }
 
 .gallery-image.visible {
     opacity: 1;
+}
+
+.gallery-image:hover {
+    transform: scale(1.03);
 }
 
 .popup {
@@ -74,19 +83,20 @@ body {
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.8);
+    transition: transform 0.5s ease;
 }
 
 .popup img {
     width: 600px;
     height: 400px;
-    /* object-fit: cover; */
     object-fit: contain;
+    
+   
 }
 
 .popup-controls {
     position: absolute;
     top: 50%;
-  
     width: 700px;
     display: flex;
     justify-content: space-between;
@@ -146,6 +156,8 @@ body {
     z-index: 2;
 }
 
+
+
 .dot {
     width: 8px;
     height: 8px;
@@ -169,6 +181,7 @@ body {
     opacity: 1;
 }
 
+
 @media (max-width: 1200px) {
     .gallery {
         grid-template-columns: repeat(5, 1fr);
@@ -183,7 +196,7 @@ body {
         font-size: 2.5rem;
     }
 
-    .popup-controls{
+    .popup-controls {
         width: 700px;
     }
 }
@@ -216,12 +229,11 @@ body {
     #heading {
         font-size: 2rem;
     }
+
+    .popup-controls {
+        width: 500px;
+    }
 }
-/* .popup-controls{
-      width: 500px;
-} */
-
-
 
 @media (max-width: 576px) {
     .gallery {
@@ -236,11 +248,7 @@ body {
     #heading {
         font-size: 1.8rem;
     }
-
-
-
 }
-
 
 @media (max-width: 400px) {
     .gallery {
@@ -255,9 +263,11 @@ body {
     #heading {
         font-size: 1.6rem;
     }
-.popup-controls{
-      width: 290px;
+
+     .popup-controls {
+        width: 290px;
+    } 
+
 }
-   
-}
+
 
