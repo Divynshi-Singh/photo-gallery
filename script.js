@@ -1,27 +1,3 @@
-
-// const backgroundColors = [
-//     "#ffeb3b", 
-//     "#3498db", 
-//     "#2ecc71", 
-//     "#f1c40f", 
-//     "#16a085", 
-//     "#f39c12", 
-//     "#8e44ad",
-//     "#1e90ff", 
-//     "#e67e22", 
-//     "#d35400", 
-//     "#a3e4d7", 
-//     "#f7c7d4", 
-//     "#ffb6c1", 
-//     "#d5f5e3", 
-//     "#f3f4f6",
-//     "#c8d6e5", 
-//     "#f4cccc", 
-//     "#c9daf8"  
-// ];
-
-
-
 const images = [
     "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/1.png", 
     "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/1.png",
@@ -43,9 +19,6 @@ const images = [
     "https://cdn.dummyjson.com/products/images/groceries/Green%20Bell%20Pepper/1.png"
 ];
 
-
-
-
 const backgroundColors = [
     "#fff9c4", 
     "#a6c8f7", 
@@ -64,10 +37,8 @@ const backgroundColors = [
     "#f9f9f9", 
     "#d1d8e0", 
     "#f1c6d7", 
-    "#c6e4f6"  
+    "#c6e4f6"
 ];
-
-
 
 let currentImageIndex = 0;
 
@@ -78,7 +49,7 @@ function renderGallery(images) {
         imgElement.src = imageUrl;
         imgElement.alt = "Image";
         imgElement.classList.add('gallery-image');
-        imgElement.style.backgroundColor = backgroundColors[index]; 
+        imgElement.style.backgroundColor = backgroundColors[index]; // Add background color
         imgElement.addEventListener('click', () => openPopup(index));
         galleryContainer.appendChild(imgElement); 
         setTimeout(() => {
@@ -89,13 +60,30 @@ function renderGallery(images) {
 
 function openPopup(index) {
     const popup = document.getElementById('popup');
-    const popupImage = document.getElementById('popup-img');
-    popupImage.style.backgroundColor = backgroundColors[index];  
-    popupImage.src = images[index]; 
+    const popupContent = document.getElementById('img-wrapper');
     currentImageIndex = index; 
-    popup.style.display = 'flex';  
-    createDots();  
-    updateDots();  
+    images.forEach((imageUrl, index) => {
+        const imgElement = document.createElement('img');
+        imgElement.src = imageUrl;
+        imgElement.alt = "Image";
+        imgElement.style.backgroundColor = backgroundColors[index]; // Add background color
+        popupContent.appendChild(imgElement); 
+        setTimeout(() => {
+            imgElement.classList.add('visible');
+        }, index * 100);
+    });
+    // const popupImage = document.getElementById('popup-img');
+    // popupImage.style.backgroundColor = backgroundColors[index]; // Set background color for popup
+    // popupImage.src = images[index]; 
+    popup.style.display = 'flex';
+    const popupImage = document.getElementById('img-wrapper');
+    // popupImage.style.backgroundColor = backgroundColors[currentImageIndex]; // Set the background color
+    // popupImage.src = images[currentImageIndex]; 
+    popupImage.style.transition = 'transform 0.5s ease';
+    popupImage.style.transform = `translateX(-${currentImageIndex * 600}px)`; 
+
+    // createDots();  
+    // updateDots();  
 }
 
 function closePopup() {
@@ -105,34 +93,21 @@ function closePopup() {
 
 function navigate(direction) {
     const popupImage = document.getElementById('popup-img');
-    const currentImage = popupImage;
-    let nextImageIndex;
-    
-    if (direction === 'next') {
-        nextImageIndex = (currentImageIndex + 1) % images.length;
-    } else if (direction === 'prev') {
-        nextImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-    }
-
-    currentImage.style.transition = 'transform 0.5s ease-in-out';
-    currentImage.style.transform = direction === 'next' ? 'translateX(-100%)' : 'translateX(100%)';
-
-    setTimeout(() => {
-        currentImageIndex = nextImageIndex;
-        // Update the popup image with the new image and background color
-        popupImage.src = images[currentImageIndex];
-        popupImage.style.transition = 'none';
-        popupImage.style.transform = direction === 'next' ? 'translateX(100%)' : 'translateX(-100%)';
-        popupImage.style.backgroundColor = backgroundColors[currentImageIndex]; // Set the correct background color
-        setTimeout(() => {
-            popupImage.style.transition = 'transform 0.5s ease-in-out';
-            popupImage.style.transform = 'translateX(0)';
-            updateDots(); // Update dots after the transition
-        }, 50);
-    }, 500);
+    const popup = document.getElementById('popup');
+    // if (direction === 'next') {
+    //     currentImageIndex = (currentImageIndex + 1);
+    // } else if (direction === 'prev') {
+    //     currentImageIndex = (currentImageIndex - 1);
+    // }
+    currentImageIndex += 1
+    console.log(currentImageIndex)
+    const popupContent = document.getElementById('img-wrapper');
+    // popupImage.style.backgroundColor = backgroundColors[currentImageIndex]; // Set the background color
+    // popupImage.src = images[currentImageIndex]; 
+    popupContent.style.transition = 'transform 0.5s ease';
+    popupContent.style.transform = `translateX(-${currentImageIndex * 600}px)`; 
+    // updateDots();s
 }
-
-
 
 function createDots() {
     const dotsContainer = document.getElementById('dots-container');
@@ -148,27 +123,16 @@ function createDots() {
 }
 
 function goToDot(index) {
+    currentImageIndex = index;
     const popupImage = document.getElementById('popup-img');
-    const currentImage = popupImage;
-    currentImage.style.transition = 'none';
-    let stepIndex = currentImageIndex;
-    let steps = Math.abs(currentImageIndex - index);
-    let direction = index > currentImageIndex ? 1 : -1;
-    let interval = setInterval(() => {
-        stepIndex += direction;
-        popupImage.src = images[stepIndex];
-     // Update the background color as well for each step
-       popupImage.style.backgroundColor = backgroundColors[stepIndex]; 
-        if (stepIndex === index) {
-            clearInterval(interval);
-            currentImage.style.transition = 'transform 0.5s ease-in-out';
-            popupImage.style.transform = 'translateX(0)';
-            currentImageIndex = stepIndex; 
-            updateDots();
-        }
-    }, 150); 
+    const popupContent = document.querySelector('.popup-content');
+    const popup = document.getElementById('popup');
+    popupImage.src = images[currentImageIndex];
+    popupImage.style.backgroundColor = backgroundColors[currentImageIndex]; // Set the background color
+    popupContent.style.transition = 'transform 0.5s ease';
+    popupContent.style.transform = `translateX(-${currentImageIndex * 600}px)`; 
+    updateDots();
 }
-
 function updateDots() {
     const dots = document.querySelectorAll('.dot');
     dots.forEach((dot, index) => {
@@ -178,10 +142,8 @@ function updateDots() {
         }
     });
 }
-
 window.onload = () => {
     renderGallery(images);
 };
-
 
 
