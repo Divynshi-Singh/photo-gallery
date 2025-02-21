@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+
 <body>
-    
+    <h1 id="heading">PHOTO GALLERY</h1>
+    <div class="gallery" id="gallery">
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content" id="popup-content">
+            <span class="close-btn" onclick="closePopup()"><i class="fa-sharp fa-solid fa-xmark"></i></span>
+            <div class="img-wrapper" id="img-wrapper">
+            </div>
+            <!-- <img id="popup-img" src="" alt="Popup Image"> -->
+        </div>
+        <div class="popup-controls">
+            <button class="prev" onclick="navigate('prev')"><i class="fa-solid fa-circle-left"></i></button>
+            <button class="next" onclick="navigate('next')"><i class="fa-solid fa-circle-right"></i></button>
+        </div>
+        <div class="dots"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
+
 </html>
