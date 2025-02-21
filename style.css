@@ -267,20 +267,35 @@ body {
 
 }
 
-  @media(min-width:2560px) {
+@media(min-width:1440px){
+    .dots{
+        padding: 150px;
+    }
+
+    .popup-controls {
+        width: 500px; 
+    }
+
+    .popup-controls button {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+}
+
+@media(min-width:2560px) {
     .gallery {
-        display: grid; 
-        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); /* Grid layout with auto-fill */
-        gap: 30px;
-        max-width: 100%; 
-        padding: 20px; 
+        grid-template-columns: repeat(6, 1fr); /* Display 5 images per row */
+        gap: 20px;
+        /* max-width: 1850px; */
+        max-width: 2200px;
     }
 
     .gallery-image {
         height: 400px;
         width: 330px;
-        object-fit: cover; 
-        transition: transform 0.3s ease; 
+        object-fit: cover;
+        transition: transform 0.3s ease;
     }
 
     .gallery-image:hover {
@@ -288,11 +303,11 @@ body {
     }
 
     #heading {
-        font-size: 4.5rem; 
+        font-size: 4.5rem;
     }
 
     .popup-controls {
-        width: 1000px; 
+        width: 1000px;
     }
 
     .popup-controls button {
@@ -300,27 +315,25 @@ body {
         height: 110px;
         font-size: 55px;
     }
+
     .popup-content {
-       max-width: 600px;
-         height: 700px;
-
-         max-width: 700px;
-         height: 800px;
-
-
+        max-width: 600px;
+        height: 700px;
+        max-width: 700px;
+        height: 800px;
     }
+
     .dots {
-        padding-bottom: 300px;
+        padding-bottom: 280px;
         gap: 16px;
     }
 
     .dots .button {
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
     }
 
-    .close-btn{
-        height: 20px;
-        width: 20px;
+    .close-btn {
+        font-size: 70px;
     }
 }
